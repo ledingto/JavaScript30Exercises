@@ -16,13 +16,24 @@
 
     <script>
       const secondHand = document.querySelector('.second-hand');
+      const minuteHand = document.querySelector('.minute-hand');
+      const hourHand = document.querySelector('.hour-hand');
+
+      function rotateHand(elem, numDegs) {
+        elem.style.transform = `rotate(${numDegs}deg)`;
+      }
 
       function timer() {
         const now = new Date();
-        const seconds = now.getSeconds();
-        const secondsDegs = ( seconds / 60 ) * 360 + 90 // + 90 to match default position of noon
 
-        secondHand.style.transform = `rotate(${secondsDegs}deg)`;
+        const secondsDegs = ( now.getSeconds() / 60 ) * 360 + 90;
+        rotateHand(secondHand, secondsDegs);
+
+        const minutesDegs = ( now.getMinutes() / 60 ) * 360 + 90;
+        rotateHand(minuteHand, minutesDegs);
+
+        const hoursDegs = ( now.getHours() / 12 ) * 360 + 90;
+        rotateHand(hourHand, hoursDegs);
       }
 
       setInterval(timer, 1000);
