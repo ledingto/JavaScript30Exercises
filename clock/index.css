@@ -4,6 +4,7 @@ html {
   text-align: center;
   background: url('./background.jpeg') bottom center;
   background-size: cover;
+  filter: hue-rotate(0deg);
 }
 
 body, html {
