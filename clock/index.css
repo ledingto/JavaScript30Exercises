@@ -1,0 +1,41 @@
+html {
+  font-size: 10px;
+  font-family: 'helvetica neue';
+  text-align: center;
+  background: url('./background.jpeg') bottom center;
+  background-size: cover;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.clock {
+  height: 30rem;
+  width: 30rem;
+  border: 10px solid white;
+  border-radius: 50%;
+  margin: 50px auto;
+  position: relative;
+  padding: 2rem;
+}
+
+.clockface {
+  transform: translateY(-3px);
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hand {
+  width: 50%;
+  height: 6px;
+  background: white;
+  position: absolute;
+  top: 50%;
+}
