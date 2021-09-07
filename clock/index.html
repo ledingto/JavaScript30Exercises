@@ -13,5 +13,19 @@
         <div class="hand second-hand"></div>
       </div>
     </div>
+
+    <script>
+      const secondHand = document.querySelector('.second-hand');
+
+      function timer() {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const secondsDegs = ( seconds / 60 ) * 360 + 90 // + 90 to match default position of noon
+
+        secondHand.style.transform = `rotate(${secondsDegs}deg)`;
+      }
+
+      setInterval(timer, 1000);
+    </script>
   </body>
 </html>
