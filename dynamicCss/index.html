@@ -10,8 +10,8 @@
 			<label for="blur">Blur:</label>
 			<input type="range" name="blur" min="0" max="25" value="0" data-unit="px">
 
-			<label for="colorPicker">Highlight:</label>
-			<input type="color" name="colorPicker" value="#BADA55">
+			<label for="color">Highlight:</label>
+			<input type="color" name="color" value="#BADA55">
 		</div>
 
 		<img src="./chick.jpeg">
@@ -58,4 +58,18 @@
 	    width: 50%;
 		}
 	</style>	
+
+	<script>
+		const inputs = document.querySelectorAll('.controls input');
+
+		function handleUpdate() {
+			const suffix = this.dataset.unit || '';
+			document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+		}
+
+		// Set event listeners in order to call update function
+		inputs.forEach(input => {
+			input.addEventListener('change', this.handleUpdate);
+		})
+	</script>
 </html>
