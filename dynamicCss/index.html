@@ -3,15 +3,15 @@
 	<body>
 		<h1>CSS Variables and <span class="highlight">JS</span></h1>
 
-		<div class="inputs">
-			<p name="spacing">Spacing:</p>
-			<input type="range" for="spacing">
+		<div class="controls">
+			<label for="spacing">Spacing:</label>
+			<input type="range" name="spacing" min="0" max="100" value="0" data-unit="px">
 
-			<p name="blur">Blur: </p>
-			<input type="range" for="blur">
+			<label for="blur">Blur:</label>
+			<input type="range" name="blur" min="0" max="25" value="0" data-unit="px">
 
-			<p name="colorPicker">Highlight: </p>
-			<input type="color" for="colorPicker">
+			<label for="colorPicker">Highlight:</label>
+			<input type="color" name="colorPicker" value="#BADA55">
 		</div>
 
 		<img src="./chick.jpeg">
