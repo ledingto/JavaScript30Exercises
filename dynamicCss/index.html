@@ -19,15 +19,22 @@
 	</body>
 
 	<style>
-		.inputs {
-			display: inline-flex;
+		:root {
+			--spacing: 0px;
+			--blur: 0px;
+			--color: #BADA55;
 		}
 
-		input {
+		.controls {
+			display: inline-flex;
+			margin: 10px;
+		}
+
+		.controls input {
 			align-self: center;
 			margin: 0px 15px;
 		}
-		input[type=range] {
+		.controls input[type=range] {
 			/*accent-color: currentcolor;*/
 		}
 
@@ -40,10 +47,15 @@
 			text-align: center;
 		}
 
-		img {
-	    padding: 10px;
-	    width: 50%;
+		.highlight {
+			color: var(--color);
 		}
 
+		img {
+	    padding: var(--spacing);
+	    background: var(--color);
+	    filter: blur(var(--blur));
+	    width: 50%;
+		}
 	</style>	
 </html>
