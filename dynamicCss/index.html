@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+	<head></head>
+	<body>
+		<h1>CSS Variables and <span class="highlight">JS</span></h1>
+
+		<div class="inputs">
+			<p name="spacing">Spacing:</p>
+			<input type="range" for="spacing">
+
+			<p name="blur">Blur: </p>
+			<input type="range" for="blur">
+
+			<p name="colorPicker">Highlight: </p>
+			<input type="color" for="colorPicker">
+		</div>
+
+		<img src="./chick.jpeg">
+
+	</body>
+
+	<style>
+		.inputs {
+			display: inline-flex;
+		}
+
+		input {
+			align-self: center;
+			margin: 0px 15px;
+		}
+		input[type=range] {
+			/*accent-color: currentcolor;*/
+		}
+
+		body {
+			text-align: center;
+		}
+
+		h1 {
+			font-size: 60px;
+			text-align: center;
+		}
+
+		img {
+	    padding: 10px;
+	    width: 50%;
+		}
+
+	</style>	
+</html>
