@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-	<head></head>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>CSS Variables and JS</title>
+	</head>
 	<body>
 		<h1>CSS Variables and <span class="highlight">JS</span></h1>
 
@@ -16,60 +20,54 @@
 
 		<img src="./chick.jpeg">
 
+		<style>
+			:root {
+				--spacing: 0px;
+				--blur: 0px;
+				--color: #BADA55;
+			}
+
+			.controls {
+				margin: 10px;
+			}
+
+			.controls input {
+				margin: 0px 15px;
+			}
+
+			body {
+				text-align: center;
+			}
+
+			h1 {
+				font-size: 60px;
+			}
+
+			.highlight {
+				color: var(--color);
+			}
+
+			img {
+		    padding: var(--spacing);
+		    background: var(--color);
+		    filter: blur(var(--blur));
+		    margin: 10px;
+			}
+		</style>
+
+		<script>
+			const inputs = document.querySelectorAll('.controls input');
+
+			function handleUpdate() {
+				const suffix = this.dataset.unit || '';
+				document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+			}
+
+			// Set event listeners in order to call update function
+			inputs.forEach(input => {
+				input.addEventListener('change', this.handleUpdate);
+				input.addEventListener('mousemove', this.handleUpdate);
+			})
+		</script>
 	</body>
-
-	<style>
-		:root {
-			--spacing: 0px;
-			--blur: 0px;
-			--color: #BADA55;
-		}
-
-		.controls {
-			display: inline-flex;
-			margin: 10px;
-		}
-
-		.controls input {
-			align-self: center;
-			margin: 0px 15px;
-		}
-		.controls input[type=range] {
-			/*accent-color: currentcolor;*/
-		}
-
-		body {
-			text-align: center;
-		}
-
-		h1 {
-			font-size: 60px;
-			text-align: center;
-		}
-
-		.highlight {
-			color: var(--color);
-		}
-
-		img {
-	    padding: var(--spacing);
-	    background: var(--color);
-	    filter: blur(var(--blur));
-	    width: 50%;
-		}
-	</style>	
-
-	<script>
-		const inputs = document.querySelectorAll('.controls input');
-
-		function handleUpdate() {
-			const suffix = this.dataset.unit || '';
-			document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
-		}
-
-		// Set event listeners in order to call update function
-		inputs.forEach(input => {
-			input.addEventListener('change', this.handleUpdate);
-		})
-	</script>
 </html>
