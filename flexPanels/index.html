@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Flex Panels Image Gallery</title>
+	</head>
+	<body>
+		<style>
+			body { 
+				margin: 0;
+			}
+
+			*, *:before, *:after {
+	      box-sizing: inherit;
+	    }
+
+			.panels {
+				min-height: 100vh;
+				overflow: hidden;
+				display: flex;
+			}
+
+			.panel {
+				background: #BADA55;
+				background-size: cover;
+				background-position: center;
+				/*align-items: center;
+				justify-content: center;*/
+				flex: 1;
+			}
+
+			.panel > * {
+
+			}
+
+			.panel1 { background-image:url(./images/surf1.jpeg); }
+			.panel2 { background-image:url(./images/surf2.jpeg); }
+			.panel3 { background-image:url(./images/surf3.jpeg); }
+			.panel4 { background-image:url(./images/surf4.jpeg); }
+			.panel5 { background-image:url(./images/surf5.jpeg); }
+		</style>
+
+		<div class="panels">
+			<div class="panel panel1">
+			</div>
+			<div class="panel panel2">
+			</div>
+			<div class="panel panel3">
+			</div>
+			<div class="panel panel4">
+			</div>
+			<div class="panel panel5">
+			</div>
+		</div>
+
+	</body>
+</html>
