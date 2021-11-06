@@ -38,6 +38,9 @@
 				/* align-items: center;
 				justify-content: center;
 				text-align: center; */
+				transition:
+					font 0.7s ease-in-out,
+					flex 0.7s ease-in-out;
 
 			}
 
@@ -48,10 +51,18 @@
 				justify-content: center;
 				align-items: center;
 				display: flex;
+				transition: transform 0.5s;
 			}
 
-			/*.panel > *:first-child { transform: translateY(-100%); }
-			.panel > *:last-child { transform: translateY(100%); }*/
+			.panel > *:first-child { transform: translateY(-100%); }
+			/*.panel.open-active > *:first-child { transform: translateY(0); }*/
+			.panel > *:last-child { transform: translateY(100%); }
+			/*.panel.open-active > *:last-child { transform: translateY(0); }*/
+
+			.panel.open {
+				flex: 2;
+				font-size: 40px;
+			}
 
 			.panel1 { background-image:url(./images/surf1.jpeg); }
 			.panel2 { background-image:url(./images/surf2.jpeg); }
@@ -88,5 +99,23 @@
 			</div>
 		</div>
 
+		<script>
+			const panels = document.querySelectorAll('.panel');
+
+			function toggleOpen() {
+				console.log('open')
+				this.classList.toggle('open')
+			}
+			function toggleActive(e) {
+				console.log('active')
+				// if (e.propertyName.includes('flex')) {
+				// 	this.classList.toggle('open-active');
+				// }
+			}
+
+			panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+			panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+
+		</script>
 	</body>
 </html>
