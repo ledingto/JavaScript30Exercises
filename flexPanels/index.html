@@ -6,6 +6,13 @@
 	</head>
 	<body>
 		<style>
+			html {
+				font-family: 'helvetica neue';
+	      font-size: 20px;
+	      font-weight: 200;
+	      background: #000000;
+			}
+
 			body { 
 				margin: 0;
 			}
@@ -21,17 +28,30 @@
 			}
 
 			.panel {
+				color: white;
 				background: #BADA55;
 				background-size: cover;
 				background-position: center;
-				/*align-items: center;
-				justify-content: center;*/
+				display: flex;
 				flex: 1;
+				flex-direction: column;
+				/* align-items: center;
+				justify-content: center;
+				text-align: center; */
+
 			}
 
 			.panel > * {
-
+				/*border: 2px solid white;*/
+				flex: 1; /* flex: 1 0 auto */
+				margin: 0;
+				justify-content: center;
+				align-items: center;
+				display: flex;
 			}
+
+			/*.panel > *:first-child { transform: translateY(-100%); }
+			.panel > *:last-child { transform: translateY(100%); }*/
 
 			.panel1 { background-image:url(./images/surf1.jpeg); }
 			.panel2 { background-image:url(./images/surf2.jpeg); }
@@ -42,14 +62,29 @@
 
 		<div class="panels">
 			<div class="panel panel1">
+				<p>Snow</p>
+				<p>Surf</p>
+				<p>Skate</p>
 			</div>
 			<div class="panel panel2">
+				<p>Take</p>
+				<p>Every</p>
+				<p>Chance</p>
 			</div>
 			<div class="panel panel3">
+				<p>Nice</p>
+				<p>Day</p>
+				<p>Outside</p>
 			</div>
 			<div class="panel panel4">
+				<p>Believe</p>
+				<p>You</p>
+				<p>Are Able</p>
 			</div>
 			<div class="panel panel5">
+				<p>You</p>
+				<p>Can</p>
+				<p>Do It</p>
 			</div>
 		</div>
 
