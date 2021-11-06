@@ -51,18 +51,29 @@
 				justify-content: center;
 				align-items: center;
 				display: flex;
-				transition: transform 0.5s;
+				transition: transform 0.25s;
 			}
 
 			.panel > *:first-child { transform: translateY(-100%); }
-			/*.panel.open-active > *:first-child { transform: translateY(0); }*/
+			.panel.open-active > *:first-child { transform: translateY(0); }
 			.panel > *:last-child { transform: translateY(100%); }
-			/*.panel.open-active > *:last-child { transform: translateY(0); }*/
+			.panel.open-active > *:last-child { transform: translateY(0); }
 
 			.panel.open {
 				flex: 2;
 				font-size: 40px;
 			}
+
+			.panel p {
+	      text-transform: uppercase;
+	      /*font-family: 'Amatic SC', cursive;*/ /* <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'> */
+	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+	      font-size: 2em;
+	    }
+
+			.panel p:nth-child(2) {
+		    font-size: 4em;
+		  }
 
 			.panel1 { background-image:url(./images/surf1.jpeg); }
 			.panel2 { background-image:url(./images/surf2.jpeg); }
@@ -108,9 +119,9 @@
 			}
 			function toggleActive(e) {
 				console.log('active')
-				// if (e.propertyName.includes('flex')) {
-				// 	this.classList.toggle('open-active');
-				// }
+				if (e.propertyName.includes('flex')) {
+					this.classList.toggle('open-active');
+				}
 			}
 
 			panels.forEach(panel => panel.addEventListener('click', toggleOpen));
