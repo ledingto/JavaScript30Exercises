@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Search by Country</title>
+</head>
+<body>
+	<form>
+		<input type="text" class="search" placeholder="Country or Capital City">
+		<ul class="suggestions"></ul>
+	</form>
+
+	<script>
+		const endpoint = "https://gist.githubusercontent.com/erdem/8c7d26765831d0f9a8c62f02782ae00d/raw/248037cd701af0a4957cce340dabb0fd04e38f4c/countries.json";
+		const countryInfo = [];
+
+		fetch(endpoint)
+			.then(res => res.json())
+			.then(data => countryInfo.push(...data));
+
+		function findMatches(wordToMatch, list) {
+			const regex = new RegExp(wordToMatch, 'gi');
+			return list.filter(item => {
+				if (item.name) {
+					return item.name.match(regex);
+				}
+				else if (item.capital) {
+					return item.capital.match(regex);
+				}
+				else {
+					return null;
+				}
+			});
+		}
+
+		function displayMatches() {
+			const matches = findMatches(this.value, countryInfo);
+			
+			const suggestedMatches = matches.map(info => `<li>${info.capital}, ${info.name}</li>`).join('');
+
+			document.querySelector('.suggestions').innerHTML = suggestedMatches;
+		}
+
+		const searchInput = document.querySelector('.search');
+		searchInput.addEventListener('keyup', displayMatches)
+		searchInput.addEventListener('change', displayMatches)
+
+	</script>
+</body>
