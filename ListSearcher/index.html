@@ -35,8 +35,11 @@
 
 		function displayMatches() {
 			const matches = findMatches(this.value, countryInfo);
-			
-			const suggestedMatches = matches.map(info => `<li>${info.capital}, ${info.name}</li>`).join('');
+			const regex = new RegExp(this.value, 'gi');
+
+			const suggestedMatches = matches.map(info => {
+				return `<li>${info.capital}, ${info.name}</li>`.replace(regex, `<span class="highlight">${this.value}</span>`)
+			}).join('');
 
 			document.querySelector('.suggestions').innerHTML = suggestedMatches;
 		}
@@ -46,4 +49,7 @@
 		searchInput.addEventListener('change', displayMatches)
 
 	</script>
+	<style>
+		.highlight { color: red; }
+	</style>
 </body>
