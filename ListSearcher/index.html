@@ -37,7 +37,7 @@
 			if (highlightTerm === '') { return word; }
 
 			const regex = new RegExp(highlightTerm, 'gi');
-			const matches = word.match(regex);
+			const matches = word.match(regex) || [];
 			const splitWord = word.split(regex);
 			let formattedWord = '';
 
@@ -55,8 +55,7 @@
 			const matches = findMatches(searchterm, countryInfo);
 
 			const suggestedMatches = matches.map(info => {
-				// const capitalFormatted = info.capital ? `${addHighlight(searchterm, info.capital)}, ` : '';
-				const capitalFormatted = '';
+				const capitalFormatted = info.capital ? `${addHighlight(searchterm, info.capital)}, ` : '';
 				const countryFormatted = addHighlight(searchterm, info.name);
 				return `<li>${capitalFormatted}${countryFormatted}</li>`;
 			}).join('');
