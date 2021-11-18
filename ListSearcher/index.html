@@ -33,12 +33,32 @@
 			});
 		}
 
+		function addHighlight(highlightTerm, word) {
+			if (highlightTerm === '') { return word; }
+
+			const regex = new RegExp(highlightTerm, 'gi');
+			const matches = word.match(regex);
+			const splitWord = word.split(regex);
+			let formattedWord = '';
+
+			matches.forEach(match => {
+				formattedWord += splitWord.shift();
+				formattedWord += `<span class="highlight">${match}</span>`
+			})
+			if (splitWord.length > 0) { formattedWord += splitWord.shift() };
+
+			return formattedWord;
+		}
+
 		function displayMatches() {
-			const matches = findMatches(this.value, countryInfo);
-			const regex = new RegExp(this.value, 'gi');
+			const searchterm = this.value;
+			const matches = findMatches(searchterm, countryInfo);
 
 			const suggestedMatches = matches.map(info => {
-				return `<li>${info.capital}, ${info.name}</li>`.replace(regex, `<span class="highlight">${this.value}</span>`)
+				// const capitalFormatted = info.capital ? `${addHighlight(searchterm, info.capital)}, ` : '';
+				const capitalFormatted = '';
+				const countryFormatted = addHighlight(searchterm, info.name);
+				return `<li>${capitalFormatted}${countryFormatted}</li>`;
 			}).join('');
 
 			document.querySelector('.suggestions').innerHTML = suggestedMatches;
