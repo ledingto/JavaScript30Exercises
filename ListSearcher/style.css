@@ -37,6 +37,7 @@ input.search {
 	background: white;
 	border-bottom: 1px solid grey;
 	padding: 20px;
+	text-transform: capitalize;
 }
 
 .suggestions li:nth-child(even) {
@@ -48,6 +49,6 @@ input.search {
 	background: linear-gradient(to bottom, #ffffff 0%, #EFEFEF 100%);
 }
 
-.highlight {
+.hl {
 	background: yellow;
 }

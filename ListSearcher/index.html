@@ -19,52 +19,38 @@
 			.then(res => res.json())
 			.then(data => countryInfo.push(...data));
 
-		function findMatches(wordToMatch, list) {
+		function findMatches(wordToMatch, countryList) {
 			const regex = new RegExp(wordToMatch, 'gi');
-			return list.filter(item => {
-				if (item.name) {
-					return item.name.match(regex);
-				}
-				else if (item.capital) {
-					return item.capital.match(regex);
-				}
-				else {
-					return null;
-				}
+			return countryList.filter(place => {
+				if (place.capital) { return place.capital.match(regex) || place.name.match(regex) };
+				return place.name.match(regex);
 			});
 		}
 
-		function addHighlight(highlightTerm, word) {
-			if (highlightTerm === '') { return word; }
-
-			const regex = new RegExp(highlightTerm, 'gi');
-			const matches = word.match(regex) || [];
-			const splitWord = word.split(regex);
-			let formattedWord = '';
-
-			matches.forEach(match => {
-				formattedWord += splitWord.shift();
-				formattedWord += `<span class="highlight">${match}</span>`
-			})
-			if (splitWord.length > 0) { formattedWord += splitWord.shift() };
-
-			return formattedWord;
-		}
-
 		function displayMatches() {
-			const searchterm = this.value;
-			const matches = findMatches(searchterm, countryInfo);
+			const searchterm = this.value.toLowerCase();
+			const matchArray = findMatches(searchterm, countryInfo);
+			const regex = new RegExp(searchterm, 'gi');
 
-			const suggestedMatches = matches.map(info => {
-				const capitalFormatted = info.capital ? `${addHighlight(searchterm, info.capital)}, ` : '';
-				const countryFormatted = addHighlight(searchterm, info.name);
-				return `<li>${capitalFormatted}${countryFormatted}</li>`;
+			const html = matchArray.map(place => {
+				let capital = '';
+				if (place.capital) {
+					capital = place.capital.replace(regex, `<span class="hl">${searchterm}</span>`);
+					capital += ', ';
+				};
+				const country = place.name.replace(regex, `<span class="hl">${searchterm}</span>`);
+				return `
+				  <li>
+				    <span class="name">${capital}${country}</span>
+				  </li>
+				`;
 			}).join('');
-
-			document.querySelector('.suggestions').innerHTML = suggestedMatches;
+			suggestions.innerHTML = html;
 		}
 
 		const searchInput = document.querySelector('.search');
+		const suggestions = document.querySelector('.suggestions');
+
 		searchInput.addEventListener('keyup', displayMatches)
 		searchInput.addEventListener('change', displayMatches)
 
@@ -73,7 +59,6 @@
 </html>
 
 <!-- ENHANCEMENTS:
-	0. FIX SEARCH FUNCTION (e.g. "Bog" does not yield Bogota, and "Dha" does not yield Abu Dhabi)
 	1. ACCESSIBLE UI FOR SCREEN READERS, CONTRAST, ETC.
 	2. USE A MAP API TO DROP A MAP WITH PIN IN CAPITAL WHEN COUNTRY IS SELECTED
 -->
