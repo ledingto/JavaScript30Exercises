@@ -29,22 +29,29 @@
 
 		function displayMatches() {
 			const searchterm = this.value.toLowerCase();
-			const matchArray = findMatches(searchterm, countryInfo);
-			const regex = new RegExp(searchterm, 'gi');
+			let html = null;
 
-			const html = matchArray.map(place => {
-				let capital = '';
-				if (place.capital) {
-					capital = place.capital.replace(regex, `<span class="hl">${searchterm}</span>`);
-					capital += ', ';
-				};
-				const country = place.name.replace(regex, `<span class="hl">${searchterm}</span>`);
-				return `
-				  <li>
-				    <span class="name">${capital}${country}</span>
-				  </li>
-				`;
-			}).join('');
+			if (searchterm !== '') {
+				console.log("searching")
+				const matchArray = findMatches(searchterm, countryInfo);
+				const regex = new RegExp(searchterm, 'gi');
+
+				// Format results with highlighted text
+				html = matchArray.map(place => {
+					let capital = '';
+					if (place.capital) {
+						capital = place.capital.replace(regex, `<span class="hl">${searchterm}</span>`);
+						capital += ', ';
+					};
+					const country = place.name.replace(regex, `<span class="hl">${searchterm}</span>`);
+					return `
+					  <li>
+					    <span class="name">${capital}${country}</span>
+					  </li>
+					`;
+				}).join('');
+			}
+
 			suggestions.innerHTML = html;
 		}
 
