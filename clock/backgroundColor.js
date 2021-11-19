@@ -8,4 +8,4 @@ function hueBackground() {
   hue = hue + 1;
 }
 
-setInterval(hueBackground, 1000)
+setInterval(hueBackground, 100)

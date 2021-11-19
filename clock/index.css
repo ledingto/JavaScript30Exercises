@@ -2,7 +2,7 @@ html {
   font-size: 10px;
   font-family: 'helvetica neue';
   text-align: center;
-  background: url('./background.jpeg') bottom center;
+  background: url('./background.png') bottom center;
   background-size: cover;
   filter: hue-rotate(0deg);
 }
