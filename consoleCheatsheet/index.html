@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">Click me to change color.</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    /* Dev Tools: Right-click on <p> in Elements and select "Break on: attribute modifications"
+     * Click the text. There will be a breakpoint in the debugger on the code that modifies the text.
+     * Make sure to remove the breakpoint (same steps) after you are done debugging.
+     */
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('Hello');
+
+    // Interpolated
+    console.log('%s and %s are unique landmarks of California', 'Golden Gate Bridge 🌁', 'Yosemite 🏞');
+
+    // Styled
+    console.log('%c Slightly larger and highlighted', 'font-size:16px; background:yellow; text-shadow: 1px 1px 2px grey')
+
+    // warning!
+    console.warn('OH NOOO');
+
+    // Error :|
+    console.error('A critical error has occurred!');
+
+    // Info
+    console.info('Humans have around 24,000 genes.');
+
+    // clearing -- console.clear()
+    console.info("To clear, please run: console.clear()");
+
+    // Testing
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'Wrong!'); // will log (assertion is false)
+    console.assert(1===1, 'Also wrong.'); // won't log (assertion is true)
+
+    // Viewing DOM Elements
+    console.dir(p); // whereas console.log(p) only shows the element itself
+
+    // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
+
+    // counting
+    // case sensitive .. only counts "console.count" and not general mention of the string
+    console.count('Hugo');
+    console.count('hugo');
+    console.count('Hugo');
+    console.count('Hugo');
+
+    // timing (and table)
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.table(data);
+      });
+
+  </script>
+</body>
+</html>
