@@ -9,10 +9,13 @@
 
 	<div id="controls">
 		<label for="color">Color:</label>
-		<input id="colorPicker" type="color" name="color" value="#000000">
+		<input id="colorPicker" type="color" name="color" value="#FF0000">
+
+		<label for="rainbow">Rainbow Pen:</label>
+		<input id="rainbow" type="checkbox" name="rainbow">
 
 		<label for="lineWidth">Line Width:</label>
-		<input id="lineWidthPicker" type="range" name="lineWidth" min="1" max="50" value="5">
+		<input id="lineWidthPicker" type="range" name="lineWidth" min="1" max="100" value="5">
 	</div>
 
 	<script>
@@ -21,7 +24,7 @@
 
 		// Ensure canvas stretches across the available space
 		canvas.width = window.innerWidth-100; // can I make this more dynamic with window resizing? css variables?
-		canvas.height = window.innerHeight-100;
+		canvas.height = window.innerHeight-150;
 
 		let lineWidthGrowth = true;
 
@@ -32,13 +35,26 @@
 		let startX = 0;
 		let startY = 0;
 
+		let hue=0;
+
 		function draw(e) {
 			if (!isDrawing) { return; }
 
-			const hue = document.querySelector('input#colorPicker').value;
+			console.log(hue)
+
 			const lineWidth = document.querySelector('input#lineWidthPicker').value;
 
-			ctx.strokeStyle = hue;
+			const rainbowSelected = document.querySelector('input#rainbow').checked;
+			if (rainbowSelected) {
+				console.log("rainbow")
+				hue++;
+				if(hue >= 360) { hue = 0; }
+				color = `hsl(${hue},100%,50%)`;
+			} else {
+				color = document.querySelector('input#colorPicker').value;
+			}
+
+			ctx.strokeStyle = color;
 			ctx.lineWidth = lineWidth;
 
 			ctx.beginPath();
