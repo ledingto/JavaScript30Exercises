@@ -7,16 +7,22 @@
 <body>
 	<canvas id="canvas" height="800px" width="800px"></canvas>
 
+	<div id="controls">
+		<label for="color">Color:</label>
+		<input id="colorPicker" type="color" name="color" value="#000000">
+
+		<label for="lineWidth">Line Width:</label>
+		<input id="lineWidthPicker" type="range" name="lineWidth" min="1" max="50" value="5">
+	</div>
+
 	<script>
 		const canvas = document.getElementById('canvas');
 		const ctx = canvas.getContext('2d');
 
 		// Ensure canvas stretches across the available space
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		canvas.width = window.innerWidth-100; // can I make this more dynamic with window resizing? css variables?
+		canvas.height = window.innerHeight-100;
 
-		let hue = 0;
-		let lineWidth = 5;
 		let lineWidthGrowth = true;
 
 		ctx.lineCap = 'round';
@@ -29,7 +35,10 @@
 		function draw(e) {
 			if (!isDrawing) { return; }
 
-			ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+			const hue = document.querySelector('input#colorPicker').value;
+			const lineWidth = document.querySelector('input#lineWidthPicker').value;
+
+			ctx.strokeStyle = hue;
 			ctx.lineWidth = lineWidth;
 
 			ctx.beginPath();
@@ -40,15 +49,6 @@
 
 			// after each stroke, set the new start point for a smooth draw experience
 			[startX, startY] = [e.offsetX, e.offsetY];
-
-			// increment and reset the hue in HSL
-			hue++;
-			if (hue >= 360) { hue = 0; }
-
-			// oscillate the line width
-			if (lineWidth > 25 || lineWidth < 5) { lineWidthGrowth = !lineWidthGrowth; }
-			if (lineWidthGrowth) { lineWidth++; }
-			else { lineWidth--; }
 		}
 
 		canvas.addEventListener('mousemove', draw);
@@ -65,5 +65,24 @@
 
 	<style>
 		html, body { margin: 0; }
+
+		:root {
+			--border-size: 10px;
+		}
+
+		#canvas {
+			border: var(--border-size) solid saddlebrown;
+			margin: 10px;
+		}
+
+		#controls {
+			border: var(--border-size) dashed pink;
+			padding: 10px;
+		}
+
+		input {
+			margin: 1em;
+			margin-right: 3em;
+		}
 	</style>
 </body>
