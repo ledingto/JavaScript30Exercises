@@ -11,12 +11,12 @@
 		const canvas = document.getElementById('canvas');
 		const ctx = canvas.getContext('2d');
 
-		ctx.strokeStyle = 'blue';
-		ctx.lineWidth = 25;
+		let hue = 0;
+		let lineWidth = 5;
+		let lineWidthGrowth = true;
+
 		ctx.lineCap = 'round';
 		ctx.lineJoin = 'round';
-
-		console.log(ctx)
 
 		let isDrawing = false;
 		let startX = 0;
@@ -25,12 +25,26 @@
 		function draw(e) {
 			if (!isDrawing) { return; }
 
+			ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+			ctx.lineWidth = lineWidth;
+
+			ctx.beginPath();
 			ctx.moveTo(startX, startY);
 			ctx.lineTo(e.offsetX, e.offsetY);
+			ctx.closePath(); // is this necessary?
 			ctx.stroke();
 
 			// after each stroke, set the new start point for a smooth draw experience
 			[startX, startY] = [e.offsetX, e.offsetY];
+
+			// increment and reset the hue in HSL
+			hue++;
+			if (hue >= 360) { hue = 0; }
+
+			// oscillate the line width
+			if (lineWidth > 25 || lineWidth < 5) { lineWidthGrowth = !lineWidthGrowth; }
+			if (lineWidthGrowth) { lineWidth++; }
+			else { lineWidth--; }
 		}
 
 		canvas.addEventListener('mousemove', draw);
