@@ -7,6 +7,44 @@
 <body>
 	<canvas id="canvas" height="800px" width="800px"></canvas>
 
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+
+		ctx.strokeStyle = 'blue';
+		ctx.lineWidth = 25;
+		ctx.lineCap = 'round';
+		ctx.lineJoin = 'round';
+
+		console.log(ctx)
+
+		let isDrawing = false;
+		let startX = 0;
+		let startY = 0;
+
+		function draw(e) {
+			if (!isDrawing) { return; }
+
+			ctx.moveTo(startX, startY);
+			ctx.lineTo(e.offsetX, e.offsetY);
+			ctx.stroke();
+
+			// after each stroke, set the new start point for a smooth draw experience
+			[startX, startY] = [e.offsetX, e.offsetY];
+		}
+
+		canvas.addEventListener('mousemove', draw);
+		canvas.addEventListener('mousedown', (e) => {
+			isDrawing = true;
+			// avoid connecting to previous endpoint by setting start point to current mouse location
+			[startX, startY] = [e.offsetX, e.offsetY];
+		});
+		canvas.addEventListener('mouseup', () => isDrawing = false);
+		canvas.addEventListener('mouseout', () => isDrawing = false);
+
+
+	</script>
+
 	<style>
 		html, body { margin: 0; }
 	</style>
