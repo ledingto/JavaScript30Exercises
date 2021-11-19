@@ -3,9 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Search by Country</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<form>
+	<form class="search-form">
 		<input type="text" class="search" placeholder="Country or Capital City">
 		<ul class="suggestions"></ul>
 	</form>
@@ -68,7 +69,5 @@
 		searchInput.addEventListener('change', displayMatches)
 
 	</script>
-	<style>
-		.highlight { color: red; }
-	</style>
 </body>
+</html>
