@@ -11,6 +11,10 @@
 		const canvas = document.getElementById('canvas');
 		const ctx = canvas.getContext('2d');
 
+		// Ensure canvas stretches across the available space
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+
 		let hue = 0;
 		let lineWidth = 5;
 		let lineWidthGrowth = true;
