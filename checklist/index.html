@@ -72,21 +72,21 @@
 		let initialCheck = 0;
 
 		function handleMultiSelect(e) {
-
 			let initalCheckFound = false;
 
 			if (!shiftKeyDown) {
 				initialCheck = e.target.name;
 			}
 			else {
-				let currentInputs = Array.from(document.querySelectorAll('input'));
+				let currentInputs = Array.from(document.querySelectorAll('li > input'));
 				let endCheck = e.target.name;
 				let checkedVal = null;
 
-				if (initialCheck > endCheck) { currentInputs = currentInputs.reverse() }
+				if (parseInt(initialCheck) > parseInt(endCheck)) { currentInputs = currentInputs.reverse() }
 
 				currentInputs.every((input) => {
 					if (input.name === endCheck) { // exit condition
+						input.checked = checkedVal;
 						return false;
 					}
 					else if (input.name === initialCheck) {
