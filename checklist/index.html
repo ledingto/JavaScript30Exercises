@@ -5,6 +5,7 @@
 	<title>List App</title>
 </head>
 <body>
+	<h1>Today's ToDos</h1>
 	<ul>
 		<li>
 			<input type="checkbox" name="1">
@@ -37,15 +38,22 @@
 			background: lavender;
 		}
 
+		h1 {
+			text-align: center;
+		}
+
 		ul {
 			background: white;
 			width: 400px;
 			margin: 10px auto;
 			padding: 0;
+			border: 1px solid grey;
+			box-shadow: 2px 2px 15px grey;
 		}
 
 		li {
 			list-style: none;
+			border-bottom: 1px solid lightgrey;
 		}
 
 		input {
