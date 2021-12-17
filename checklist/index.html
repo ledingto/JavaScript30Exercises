@@ -73,21 +73,21 @@
 			else {
 				let currentInputs = Array.from(document.querySelectorAll('input'));
 				let endCheck = e.target.name;
+				let checkedVal = null;
 
 				if (initialCheck > endCheck) { currentInputs = currentInputs.reverse() }
 
 				currentInputs.every((input) => {
-					if (input.name === endCheck) {
-						input.checked = true;
+					if (input.name === endCheck) { // exit condition
 						return false;
 					}
 					else if (input.name === initialCheck) {
-						input.checked = true;
+						checkedVal = input.checked;
 						initalCheckFound = true;
 					}
 
 					if (initalCheckFound) {
-						input.checked = true;
+						input.checked = checkedVal !== null ? checkedVal : input.checked;
 					}
 
 					return true;
