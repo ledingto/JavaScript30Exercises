@@ -59,18 +59,24 @@
 	</style>
 
 	<script>
-		const inputs = document.querySelectorAll('input');
+		const initialInputs = document.querySelectorAll('input');
 		let shiftKeyDown = false;
 		let initialCheck = 0;
 
 		function handleMultiSelect(e) {
+
 			let initalCheckFound = false;
+
 			if (!shiftKeyDown) {
 				initialCheck = e.target.name;
 			}
 			else {
-				endCheck = e.target.name;
-				Array.from(inputs).every((input) => {
+				let currentInputs = Array.from(document.querySelectorAll('input'));
+				let endCheck = e.target.name;
+
+				if (initialCheck > endCheck) { currentInputs = currentInputs.reverse() }
+
+				currentInputs.every((input) => {
 					if (input.name === endCheck) {
 						input.checked = true;
 						return false;
@@ -97,7 +103,7 @@
 		}
 
 		// event listener for shift key -> call function
-		inputs.forEach(input => input.addEventListener('change', handleMultiSelect))
+		initialInputs.forEach(input => input.addEventListener('change', handleMultiSelect))
 
 		// set flag for whether or not shift key is pressed
 		window.addEventListener('keydown', handleShiftKeyDown)
