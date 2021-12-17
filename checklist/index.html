@@ -6,36 +6,52 @@
 </head>
 <body>
 	<h1>Today's ToDos</h1>
-	<ul>
-		<li>
-			<input type="checkbox" name="1">
-			<label for="1">List Item 1</label>
-		</li>
-		<li>
-			<input type="checkbox" name="2">
-			<label for="2">List Item 2</label>
-		</li>
-		<li>
-			<input type="checkbox" name="3">
-			<label for="3">List Item 3</label>
-		</li>
-		<li>
-			<input type="checkbox" name="4">
-			<label for="4">List Item 4</label>
-		</li>
-		<li>
-			<input type="checkbox" name="5">
-			<label for="5">List Item 5</label>
-		</li>
-		<li>
-			<input type="checkbox" name="6">
-			<label for="6">List Item 6</label>
-		</li>
-	</ul>
+	<div class="list">
+		<ul>
+			<li>
+				<input type="checkbox" name="1">
+				<label for="1">List Item 1</label>
+			</li>
+			<li>
+				<input type="checkbox" name="2">
+				<label for="2">List Item 2</label>
+			</li>
+			<li>
+				<input type="checkbox" name="3">
+				<label for="3">List Item 3</label>
+			</li>
+			<li>
+				<input type="checkbox" name="4">
+				<label for="4">List Item 4</label>
+			</li>
+			<li>
+				<input type="checkbox" name="5">
+				<label for="5">List Item 5</label>
+			</li>
+			<li>
+				<input type="checkbox" name="6">
+				<label for="6">List Item 6</label>
+			</li>
+		</ul>
+
+		<form id="addItem" onsubmit="addItem(); return false;">
+			<input type="text" class="textbox" id="newItemText">
+			<button type="submit">Add Item</button>
+		</form>
+	</div>
 
 	<style>
 		html, body {
 			background: lavender;
+		}
+
+		.list {
+			width: 400px;
+			margin: 10px auto;
+		}
+
+		.textbox {
+			margin: 0px;
 		}
 
 		h1 {
@@ -44,7 +60,7 @@
 
 		ul {
 			background: white;
-			width: 400px;
+			width: 100%;
 			margin: 10px auto;
 			padding: 0;
 			border: 1px solid grey;
@@ -67,9 +83,33 @@
 	</style>
 
 	<script>
-		const initialInputs = document.querySelectorAll('input');
 		let shiftKeyDown = false;
 		let initialCheck = 0;
+
+		function handleShiftKeyDown(e) {
+			if (e.keyCode === 16) { shiftKeyDown = true; }
+		}
+		function handleShiftKeyUp(e) {
+			if (e.keyCode === 16) { shiftKeyDown = false; }
+		}
+
+		function addItem() {
+			// button on form should not refresh page ...
+			// it should edit existing html
+			let listInputs = Array.from(document.querySelectorAll('li > input'));
+			let list = document.querySelector('ul');
+			let lastId = listInputs[listInputs.length-1].name;
+			let newId = parseInt(lastId) + 1;
+			const newItemTextElem = document.getElementById('newItemText');
+
+			const newItem = document.createElement("li");
+			newItem.innerHTML = `<input type="checkbox" name="${newId}">
+													<label for="${newId}">${newItemTextElem.value}</label>`;
+
+			list.appendChild(newItem);
+			refreshMultiSelect();
+			newItemTextElem.value = "";
+		}
 
 		function handleMultiSelect(e) {
 			let initalCheckFound = false;
@@ -103,16 +143,13 @@
 			}
 		}
 
-		function handleShiftKeyDown(e) {
-			if (e.keyCode === 16) { shiftKeyDown = true; }
-		}
-		function handleShiftKeyUp(e) {
-			if (e.keyCode === 16) { shiftKeyDown = false; }
+		function refreshMultiSelect() {
+			const listInputs = document.querySelectorAll('li > input')
+			listInputs.forEach(input => input.addEventListener('change', handleMultiSelect));
 		}
 
-		// event listener for shift key -> call function
-		initialInputs.forEach(input => input.addEventListener('change', handleMultiSelect))
-
+		// add event listeners for multiselect
+		refreshMultiSelect();
 		// set flag for whether or not shift key is pressed
 		window.addEventListener('keydown', handleShiftKeyDown)
 		window.addEventListener('keyup', handleShiftKeyUp)
