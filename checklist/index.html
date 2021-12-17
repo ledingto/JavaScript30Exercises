@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>List App</title>
+</head>
+<body>
+	<ul>
+		<li>
+			<input type="checkbox" name="1">
+			<label for="1">List Item 1</label>
+		</li>
+		<li>
+			<input type="checkbox" name="2">
+			<label for="2">List Item 2</label>
+		</li>
+		<li>
+			<input type="checkbox" name="3">
+			<label for="3">List Item 3</label>
+		</li>
+		<li>
+			<input type="checkbox" name="4">
+			<label for="4">List Item 4</label>
+		</li>
+		<li>
+			<input type="checkbox" name="5">
+			<label for="5">List Item 5</label>
+		</li>
+		<li>
+			<input type="checkbox" name="6">
+			<label for="6">List Item 6</label>
+		</li>
+	</ul>
+
+	<style>
+		html, body {
+			background: lavender;
+		}
+
+		ul {
+			background: white;
+			width: 400px;
+			margin: 10px auto;
+			padding: 0;
+		}
+
+		li {
+			list-style: none;
+		}
+
+		input {
+			margin: 15px 30px;
+		}
+
+		label {
+		}
+
+
+	</style>
+
+	<script>
+		const inputs = document.querySelectorAll('input');
+		let shiftKeyDown = false;
+		let initialCheck = 0;
+
+		function handleMultiSelect(e) {
+			let initalCheckFound = false;
+			if (!shiftKeyDown) {
+				initialCheck = e.target.name;
+			}
+			else {
+				endCheck = e.target.name;
+				Array.from(inputs).every((input) => {
+					if (input.name === endCheck) {
+						input.checked = true;
+						return false;
+					}
+					else if (input.name === initialCheck) {
+						input.checked = true;
+						initalCheckFound = true;
+					}
+
+					if (initalCheckFound) {
+						input.checked = true;
+					}
+
+					return true;
+				})
+			}
+		}
+
+		function handleShiftKeyDown(e) {
+			if (e.keyCode === 16) { shiftKeyDown = true; }
+		}
+		function handleShiftKeyUp(e) {
+			if (e.keyCode === 16) { shiftKeyDown = false; }
+		}
+
+		// event listener for shift key -> call function
+		inputs.forEach(input => input.addEventListener('change', handleMultiSelect))
+
+		// set flag for whether or not shift key is pressed
+		window.addEventListener('keydown', handleShiftKeyDown)
+		window.addEventListener('keyup', handleShiftKeyUp)
+
+	</script>
+</body>
+</html>
