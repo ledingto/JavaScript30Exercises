@@ -9,28 +9,46 @@
 	<div class="list">
 		<ul>
 			<li>
-				<input type="checkbox" name="1">
-				<label for="1">List Item 1</label>
+				<span>
+					<input type="checkbox" name="1">
+					<label for="1">List Item 1</label>
+				</span>
+				<button class="removeBtn" onclick="removeItem(this)">X</button>
 			</li>
 			<li>
-				<input type="checkbox" name="2">
-				<label for="2">List Item 2</label>
+				<span>
+					<input type="checkbox" name="2">
+					<label for="2">List Item 2</label>
+				</span>
+				<button class="removeBtn" onclick="removeItem(this)">X</button>
 			</li>
 			<li>
-				<input type="checkbox" name="3">
-				<label for="3">List Item 3</label>
+				<span>
+					<input type="checkbox" name="3">
+					<label for="3">List Item 3</label>
+				</span>
+				<button class="removeBtn" onclick="removeItem(this)">X</button>
 			</li>
 			<li>
-				<input type="checkbox" name="4">
-				<label for="4">List Item 4</label>
+				<span>
+					<input type="checkbox" name="4">
+					<label for="4">List Item 4</label>
+				</span>
+				<button class="removeBtn" onclick="removeItem(this)">X</button>
 			</li>
 			<li>
-				<input type="checkbox" name="5">
-				<label for="5">List Item 5</label>
+				<span>
+					<input type="checkbox" name="5">
+					<label for="5">List Item 5</label>
+				</span>
+				<button class="removeBtn" onclick="removeItem(this)">X</button>
 			</li>
 			<li>
-				<input type="checkbox" name="6">
-				<label for="6">List Item 6</label>
+				<span>
+					<input type="checkbox" name="6">
+					<label for="6">List Item 6</label>
+				</span>
+				<button class="removeBtn" onclick="removeItem(this)">X</button>
 			</li>
 		</ul>
 
@@ -54,6 +72,11 @@
 			margin: 0px;
 		}
 
+		.removeBtn {
+			padding: 0px 15px;
+			height: auto;
+		}
+
 		h1 {
 			text-align: center;
 		}
@@ -70,6 +93,8 @@
 		li {
 			list-style: none;
 			border-bottom: 1px solid lightgrey;
+			display: flex;
+			justify-content: space-between;
 		}
 
 		input {
@@ -83,6 +108,7 @@
 	</style>
 
 	<script>
+		let listInputLoc = 'li > span > input';
 		let shiftKeyDown = false;
 		let initialCheck = 0;
 
@@ -94,21 +120,33 @@
 		}
 
 		function addItem() {
-			// button on form should not refresh page ...
-			// it should edit existing html
-			let listInputs = Array.from(document.querySelectorAll('li > input'));
 			let list = document.querySelector('ul');
-			let lastId = listInputs[listInputs.length-1].name;
-			let newId = parseInt(lastId) + 1;
+			let listInputs = Array.from(document.querySelectorAll(listInputLoc));
+			let newId = 1;
+
+			// don't overwrite existing ids
+			if (listInputs.length !== 0) {
+				let lastId = listInputs[listInputs.length-1].name;
+				newId = parseInt(lastId) + 1;
+			}
+
 			const newItemTextElem = document.getElementById('newItemText');
 
 			const newItem = document.createElement("li");
-			newItem.innerHTML = `<input type="checkbox" name="${newId}">
-													<label for="${newId}">${newItemTextElem.value}</label>`;
+			newItem.innerHTML = `<span>
+														<input type="checkbox" name="${newId}">
+														<label for="${newId}">${newItemTextElem.value}</label>
+													</span>
+													<button class="removeBtn" onclick="removeItem(this)">X</button>`;
 
 			list.appendChild(newItem);
 			refreshMultiSelect();
 			newItemTextElem.value = "";
+		}
+
+		function removeItem(elem) {
+			let list = document.querySelector('ul');
+			list.removeChild(elem.parentNode);
 		}
 
 		function handleMultiSelect(e) {
@@ -118,7 +156,7 @@
 				initialCheck = e.target.name;
 			}
 			else {
-				let currentInputs = Array.from(document.querySelectorAll('li > input'));
+				let currentInputs = Array.from(document.querySelectorAll(listInputLoc));
 				let endCheck = e.target.name;
 				let checkedVal = null;
 
@@ -144,7 +182,7 @@
 		}
 
 		function refreshMultiSelect() {
-			const listInputs = document.querySelectorAll('li > input')
+			const listInputs = document.querySelectorAll(listInputLoc)
 			listInputs.forEach(input => input.addEventListener('change', handleMultiSelect));
 		}
 
