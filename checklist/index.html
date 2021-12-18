@@ -165,6 +165,7 @@
 				currentInputs.every((input) => {
 					if (input.name === endCheck) { // exit condition
 						input.checked = checkedVal;
+						handleStrikethrough(input); // strikethrough final element
 						return false;
 					}
 					else if (input.name === initialCheck) {
@@ -176,21 +177,28 @@
 						input.checked = checkedVal !== null ? checkedVal : input.checked;
 					}
 
+					handleStrikethrough(input); // strikethrough middle elements
 					return true;
-				})
+				});
 			}
+		}
+
+		function handleStrikethrough(inputElem) {
+			let labelElem = inputElem.parentNode.querySelector('label');
+			labelElem.style.textDecoration = inputElem.checked ? 'line-through' : '';
 		}
 
 		function refreshMultiSelect() {
 			const listInputs = document.querySelectorAll(listInputLoc)
 			listInputs.forEach(input => input.addEventListener('change', handleMultiSelect));
+			listInputs.forEach(input => input.addEventListener('change', (e) => handleStrikethrough(e.target)));
 		}
 
 		// add event listeners for multiselect
 		refreshMultiSelect();
 		// set flag for whether or not shift key is pressed
-		window.addEventListener('keydown', handleShiftKeyDown)
-		window.addEventListener('keyup', handleShiftKeyUp)
+		window.addEventListener('keydown', handleShiftKeyDown);
+		window.addEventListener('keyup', handleShiftKeyUp);
 
 	</script>
 </body>
